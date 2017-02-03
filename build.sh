@@ -1,6 +1,16 @@
 #!/bin/bash
 # Quick build script for docker containers.
 
-sudo docker build -t bwv988/java7 java7-base-docker/
+echo -e "Building Alluxio docker image..."
 
-sudo docker build -t bwv988/alluxio docker-alluxio
+function build_img() {
+  local prefix=$1
+  local imgname=$2
+  local img="${prefix}/${imgname}"
+
+  echo -e "Building docker image ${img}..."
+  docker build -t $img .
+}
+
+IMGPREFIX=bwv988
+build_img $IMGPREFIX alluxio
